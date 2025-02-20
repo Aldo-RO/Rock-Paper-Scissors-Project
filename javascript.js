@@ -1,9 +1,18 @@
 console.log("Hello World");
-let cc; let hc; let HumanScore=0; let ComputerScore=0;
-function getHumanChoice(){
-    let x=prompt("Choose between rock, paper and scissors");
-    hc=x.toLowerCase();
-}
+let cc; let hc; let HumanScore=0; let ComputerScore=0; let round=1;
+const scoreMarker=document.querySelector("#score");
+const infoMarker=document.querySelector("#information");
+const infoText=document.createElement("p");
+infoText.innerText="Round "+round;
+infoMarker.appendChild(infoText);
+infoMarker.setAttribute("style","font-size:1.5rem; text-align: center; margin-top=1px; border: 1mm solid black; padding: 3mm;");
+const scoreUser=document.createElement("div");
+const scoreCPU=document.createElement("div");
+scoreUser.textContent="User Score="+HumanScore;
+scoreCPU.textContent="Computer Score="+ComputerScore;
+scoreMarker.appendChild(scoreUser);
+scoreMarker.appendChild(scoreCPU);
+scoreMarker.setAttribute("style","font-size:2rem; margin-bottom: 1mm; padding:1cm; color: lawngreen; background: black; display: flex; justify-content: space-around");
 function getComputerChoice(x){
     if(x==0){
         cc="rock";
@@ -18,47 +27,66 @@ function getRandomLimit(max) {
 }
 function playRound(){
     let res;
-    getHumanChoice();
-    console.log("You chose " + hc);
+    infoText.innerText="Round "+round+"\nYou chose "+ hc;
     res=getRandomLimit(3);
     getComputerChoice(res);
-    console.log("The computer chose " + cc);
-    alert(hc+" vs. "+cc);
+    infoText.innerText+="\nThe computer chose " + cc;
+    infoText.innerText+="\n"+hc+" vs. "+cc;
     if(hc==cc){
-        alert("It's a draw.");
+        infoText.innerText+="\nIt's a draw.";
     }
     if(hc=="rock"&&cc=="paper"){
-        alert("You lose!");
         ComputerScore+=1;
+        infoText.innerText+="\nYou lose!";
     }
     if(hc=="rock"&&cc=="scissors"){
-        alert("You won!");
         HumanScore+=1;
+        infoText.innerText+="\nYou won!";
     }
     if(hc=="paper"&&cc=="rock"){
-        alert("You won!");
         HumanScore+=1;
+        infoText.innerText+="\nYou won!";
     }
     if(hc=="paper"&&cc=="scissors"){
-        alert("You lose!");
         ComputerScore+=1;
+        infoText.innerText+="\nYou lose!";
     }
     if(hc=="scissors"&&cc=="paper"){
-        alert("You won!");
         HumanScore+=1;
+        infoText.innerText+="\nYou won!";
     }
     if(hc=="scissors"&&cc=="rock"){
-        alert("You lose!");
         ComputerScore+=1;
+        infoText.innerText+="\nYou lose!";
     }
-    alert("Score: "+HumanScore+" - "+ComputerScore);
+    scoreUser.textContent="User Score="+HumanScore;
+    scoreCPU.textContent="Computer Score="+ComputerScore;
+    round+=1;
+    if((HumanScore===5)||(ComputerScore===5)){
+        infoText.innerText="The GAME is OVER\n";
+        if(HumanScore>ComputerScore){
+            infoText.innerText+="YOU are the WINNER!!!";
+        }else if(ComputerScore>HumanScore){
+            infoText.innerText+="The winner is the CPU (You've lost!)";
+        }else{
+            infoText.innerText+="Looks like it's a draw game! ):";
+        }
+        infoText.innerText+="\nRefresh the page if you want to play again. See you next time!";
+        round=0;
+    }
 }
-function playGame(){
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    alert("GAME OVER");
-}
-playGame();
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (button.id==="rock"){
+            hc="rock";
+        }else if (button.id==="paper"){
+            hc="paper";
+        }else if (button.id==="scissors"){
+            hc="scissors";
+        }
+        if (round!=0){
+            playRound();
+        }
+    });
+});

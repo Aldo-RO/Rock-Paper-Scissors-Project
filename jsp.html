@@ -4,8 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        button{
+            background-color: blue;
+            color: white;
+            border: 5px solid gainsboro;
+            padding: 0.5rem 1rem;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0.5rem;
+            box-shadow: 15px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+        }
+        button:hover{
+            background-color: white;
+            color: blue;
+        }
+        button:disabled{
+            opacity: 1;
+            cursor: not-allowed;
+        }
+        div.options{
+            display: flex;
+            justify-content: center;
+        }
+        div#header{
+            background-color: blue;
+            text-align: center;
+            color: white;
+            padding: 1mm;
+            margin-bottom: 1mm;
+        };
+    </style>
 </head>
 <body>
+    <div id="header">
+        <h1>Let's play Rock, Scissors and Paper!!</h1>
+        <h3>Choose an option</h3>
+    </div>
+    <div id="score">
+
+    </div>
+    <div id="information">
+
+    </div>
+    <div class="options">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
     <script src="javascript.js"></script>
 </body>
 </html>
